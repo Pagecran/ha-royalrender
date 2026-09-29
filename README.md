@@ -85,6 +85,8 @@ Use `scripts/uninstall.ps1` to remove the service while retaining config/logs.
 
 1. HACS → Custom repositories → add `https://github.com/Pagecran/ha-royalrender`,
    category **Integration**. This is a custom repository, not a HACS catalog listing.
+   The initial release is marked pre-release: enable beta versions in HACS if
+   needed to select it.
 2. Download Royal Render and restart Home Assistant.
 3. Settings → Devices & services → Add integration → **Royal Render**.
 4. Enter `http://your-bridge:8787` (or HTTPS) and the generated API key.

@@ -19,6 +19,14 @@ job IDs. No live control command was tested. HA integration tests are provided
 for Linux CI against Core 2026.9.4 (Python 3.14), separate from the bridge's
 Python 3.13 vendor SDK environment.
 
+GitHub Actions also passed the 14 bridge tests on both Windows and Linux and
+the 3 integration tests with Home Assistant Core 2026.9.4 / Python 3.14:
+UI setup/duplicate detection, entity setup/discovery/unavailability/unload, and
+group-assignment service payloads. These are mocked HA runtime tests, not an
+installation on the studio's HAOS instance.
+HACS repository validation passed (brand-catalog registration excluded, as this
+is a custom repository). Workflow run: 36569511054, attempt 2.
+
 Run `python -m pytest -q`. Tests use an injected SDK and local ephemeral HTTP server:
 - historical errors / new incidents / recovery / reset / expiration / deletion;
 - correct global client index and 64-bit job IDs;
