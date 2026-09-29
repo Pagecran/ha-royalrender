@@ -1,9 +1,32 @@
 from types import SimpleNamespace as NS
 from unittest.mock import Mock
+import json
+from datetime import datetime
 
 import pytest
 
 from rr_ha_bridge.sdk import RoyalRenderSDK
+
+
+def test_snapshot_serializes_native_scene_display_method():
+    sdk = RoyalRenderSDK(None)
+    sdk.tcp = Mock()
+    sdk.tcp.clients.count.return_value = 0
+    sdk.tcp.clientGetGroups.return_value = NS(count=0)
+    sdk.tcp.jobs.getMaxJobsFiltered.return_value = 1
+    sdk.tcp.jobs.getJobMinInfo_filterQueue.return_value = NS(ID=1877000000000000001)
+    sdk.tcp.jobs.getJobInfo.return_value = NS(
+        ID=1877000000000000001, IDstr=lambda: '{TEST }',
+        dateSubmitted=datetime(2026, 9, 29),
+        sceneDisplayName=lambda: 'Example scene', sceneName='example.blend',
+        userName='artist', companyProjectName='project', layer='layer',
+        statusAsString=lambda: 'Rendering', framesDone=1, framesTotal=10,
+        errorCount=0, disabled=False, disabledBecausOfErrors=False,
+        isRendering=lambda: True,
+    )
+    data = json.loads(json.dumps(sdk.snapshot()))
+    assert data['jobs'][0]['name'] == 'Example scene'
+    assert data['jobs'][0]['id'] == '1877000000000000001'
 
 
 def adapter():

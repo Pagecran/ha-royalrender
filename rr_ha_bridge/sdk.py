@@ -96,7 +96,7 @@ class RoyalRenderSDK:
                 "id": str(j.ID), "label": j.IDstr().strip("{} "),
                 # RR exposes a local datetime; the bridge runs in the RR server's timezone.
                 "submitted_at": j.dateSubmitted.timestamp() if j.dateSubmitted else None,
-                "name": j.sceneDisplayName or j.sceneName.replace("\\", "/").rsplit("/", 1)[-1],
+                "name": value(j, "sceneDisplayName") or j.sceneName.replace("\\", "/").rsplit("/", 1)[-1],
                 "user": j.userName, "project": j.companyProjectName,
                 "layer": j.layer, "status": status,
                 "done": int(j.framesDone), "total": int(j.framesTotal),
