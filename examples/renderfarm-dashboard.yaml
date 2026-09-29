@@ -1,0 +1,214 @@
+title: Renderfarm
+path: renderfarm
+icon: mdi:render
+type: sections
+max_columns: 4
+
+sections:
+  # Place this section at full width in a Sections view.
+  - column_span: 4
+    cards:
+      - type: heading
+        heading: File Royal Render
+        icon: mdi:format-list-bulleted-square
+
+      - type: markdown
+        content: |
+          ## 🟢 Jobs en cours — {{ states('sensor.royal_render_rendering_jobs') }}
+
+          {% set jobs = state_attr('sensor.royal_render_queue', 'jobs') | default([], true) %}
+          {% set ns = namespace(count=0) %}
+          <table class="rr-jobs-table">
+            <thead><tr>
+              <th class="rr-job">Job</th><th class="rr-layer">Layer</th><th class="rr-user">Utilisateur</th><th class="rr-app-col">App</th><th class="rr-frames">Frames</th><th class="rr-clients">Clients</th>
+            </tr></thead>
+            <tbody>
+            {% for job in jobs if job.rendering %}
+            {% set ns.count = ns.count + 1 %}
+            {% set text = ((job.name | string) ~ ' ' ~ (job.layer | string)) | lower %}
+            {% if 'maya' in text or '03-3d' in text %}{% set app = 'Maya' %}{% set app_logo = 'https://images.seeklogo.com/logo-png/30/2/autodesk-maya-logo-png_seeklogo-308077.png' %}{% elif 'blender' in text %}{% set app = 'Blender' %}{% set app_logo = 'https://cdn.simpleicons.org/blender/F5792A' %}{% elif 'nuke' in text %}{% set app = 'Nuke' %}{% set app_logo = 'https://cdn.simpleicons.org/nuke/FFFFFF' %}{% elif 'fusion' in text %}{% set app = 'Fusion' %}{% set app_logo = 'https://cdn.simpleicons.org/blackmagicdesign/FFFFFF' %}{% else %}{% set app = '' %}{% set app_logo = '' %}{% endif %}
+            <tr>
+              <td class="rr-job"><strong style="color:#4ade80">{{ job.label }}</strong><span class="rr-title">{{ job.name | truncate(72, true, '…') }}</span></td>
+              <td class="rr-layer">{{ job.layer | truncate(42, true, '…') }}</td>
+              <td class="rr-user"><span class="rr-user-name">{{ job.user }}</span></td>
+              <td class="rr-app-col">{% if app %}<img class="rr-app-logo" src="{{ app_logo }}" alt="{{ app }}" title="{{ app }}" width="16" height="16">{% else %}<span class="rr-app-empty">—</span>{% endif %}</td>
+              <td class="rr-frames"><strong>{{ job.done }} / {{ job.total }}</strong>{% if job.total | int > 0 %}<span>{{ ((job.done | float / job.total | float) * 100) | round(0) }} %</span>{% endif %}</td>
+              <td class="rr-clients"><strong>{{ job.rendering_clients | length }}</strong></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          {% if ns.count == 0 %}*Aucun job en calcul.*{% endif %}
+
+        card_mod:
+          style: &jobs_table_style |
+            ha-card { background: rgba(19, 23, 31, .92); border: 1px solid rgba(255,255,255,.10); border-radius: 14px; overflow: hidden; }
+            .markdown { padding: 8px 12px 12px !important; }
+            .markdown h2 { margin: 4px 0 10px !important; font-size: 1.05rem !important; }
+            .rr-jobs-table { width: 100% !important; border-collapse: separate !important; border-spacing: 0 5px !important; table-layout: fixed !important; margin: 0 !important; }
+            .rr-jobs-table th { color: #9ca3af !important; font-size: .72rem !important; font-weight: 700 !important; text-transform: uppercase; letter-spacing: .04em; padding: 0 10px 5px !important; text-align: left !important; border: 0 !important; }
+            .rr-jobs-table td { background: rgba(255,255,255,.045) !important; border-top: 1px solid rgba(255,255,255,.07) !important; border-bottom: 1px solid rgba(255,255,255,.07) !important; padding: 9px 10px !important; vertical-align: middle !important; font-size: .86rem !important; line-height: 1.25 !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+            .rr-jobs-table td:first-child { border-left: 1px solid rgba(255,255,255,.07) !important; border-radius: 9px 0 0 9px !important; }
+            .rr-jobs-table td:last-child { border-right: 1px solid rgba(255,255,255,.07) !important; border-radius: 0 9px 9px 0 !important; text-align: center !important; }
+            .rr-job { width: 31% !important; }.rr-layer { width: 24% !important; }.rr-user { width: 16% !important; }.rr-app-col { width: 6% !important; text-align:center !important; }.rr-frames { width: 16% !important; }.rr-clients { width: 7% !important; }
+            .rr-title, .rr-frames span { display: block !important; color: #aeb6c2 !important; font-size: .76rem !important; margin-top: 2px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+            .rr-user-name { display:block !important; white-space:nowrap !important; overflow:hidden !important; text-overflow:ellipsis !important; }
+            .rr-app-col { text-align:center !important; }
+            .rr-app-logo { width:16px !important; height:16px !important; max-width:16px !important; max-height:16px !important; object-fit:contain !important; vertical-align:middle !important; display:inline-block !important; }
+            .rr-app-empty { color:#667085 !important; font-size:.82rem !important; }
+
+  # Second full-width table.
+  - column_span: 4
+    cards:
+      - type: markdown
+        content: |
+          ## ⏳ Jobs en attente — {{ states('sensor.royal_render_waiting_jobs') }}
+
+          {% set jobs = state_attr('sensor.royal_render_queue', 'jobs') | default([], true) %}
+          {% set ns = namespace(count=0) %}
+          <table class="rr-jobs-table">
+            <thead><tr>
+              <th class="rr-job">Job</th><th class="rr-layer">Layer</th><th class="rr-user">Utilisateur</th><th class="rr-app-col">App</th><th class="rr-frames">Frames</th><th class="rr-clients">Clients</th>
+            </tr></thead>
+            <tbody>
+            {% for job in jobs if not job.rendering and not job.finished and not job.problem and not job.disabled %}
+            {% set ns.count = ns.count + 1 %}
+            {% set text = ((job.name | string) ~ ' ' ~ (job.layer | string)) | lower %}
+            {% if 'maya' in text or '03-3d' in text %}{% set app = 'Maya' %}{% set app_logo = 'https://images.seeklogo.com/logo-png/30/2/autodesk-maya-logo-png_seeklogo-308077.png' %}{% elif 'blender' in text %}{% set app = 'Blender' %}{% set app_logo = 'https://cdn.simpleicons.org/blender/F5792A' %}{% elif 'nuke' in text %}{% set app = 'Nuke' %}{% set app_logo = 'https://cdn.simpleicons.org/nuke/FFFFFF' %}{% elif 'fusion' in text %}{% set app = 'Fusion' %}{% set app_logo = 'https://cdn.simpleicons.org/blackmagicdesign/FFFFFF' %}{% else %}{% set app = '' %}{% set app_logo = '' %}{% endif %}
+            <tr>
+              <td class="rr-job"><strong style="color:#fbbf24">{{ job.label }}</strong><span class="rr-title">{{ job.name | truncate(72, true, '…') }}</span></td>
+              <td class="rr-layer">{{ job.layer | truncate(42, true, '…') }}</td>
+              <td class="rr-user"><span class="rr-user-name">{{ job.user }}</span></td>
+              <td class="rr-app-col">{% if app %}<img class="rr-app-logo" src="{{ app_logo }}" alt="{{ app }}" title="{{ app }}" width="16" height="16">{% else %}<span class="rr-app-empty">—</span>{% endif %}</td>
+              <td class="rr-frames"><strong>{{ job.done }} / {{ job.total }}</strong>{% if job.total | int > 0 %}<span>{{ ((job.done | float / job.total | float) * 100) | round(0) }} %</span>{% endif %}</td>
+              <td class="rr-clients"><strong>{{ job.assigned_clients | length }}</strong></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          {% if ns.count == 0 %}*Aucun job en attente.*{% endif %}
+          <div class="rr-footnote">Temps par frame : non disponible dans l’intégration Home Assistant actuelle.</div>
+
+        card_mod:
+          style: *jobs_table_style
+
+  # Example only: replace each placeholder entity with your own Royal Render entities.
+  - cards:
+      - type: heading
+        heading: Machines de rendu
+        icon: mdi:server-network
+
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:bubble-card
+            card_type: button
+            button_type: state
+            entity: binary_sensor.machine_lambda_rendering
+            name: Machine Lambda
+            icon: mdi:render
+            show_state: true
+            tap_action:
+              action: navigate
+              navigation_path: '#rr-machine-lambda'
+            sub_button:
+              - entity: sensor.machine_lambda_status
+                name: ''
+                icon: mdi:blank
+                show_background: false
+                tap_action:
+                  action: navigate
+                  navigation_path: '#rr-machine-lambda'
+            styles: |
+              .bubble-button-card-container { border: 1px solid {% if is_state('binary_sensor.machine_lambda_rendering','on') %}rgba(34,197,94,.75){% else %}rgba(249,115,22,.75){% endif %}; background: {% if is_state('binary_sensor.machine_lambda_rendering','on') %}rgba(34,197,94,.16){% else %}rgba(249,115,22,.14){% endif %}; }
+              .bubble-name, .bubble-state { color: {% if is_state('binary_sensor.machine_lambda_rendering','on') %}#bbf7d0{% else %}#fed7aa{% endif %} !important; font-weight:700; }
+
+  # Popup example only. No real machine names, users or internal entity IDs are included.
+  - cards:
+      - type: custom:bubble-card
+        card_type: pop-up
+        hash: '#rr-machine-lambda'
+        name: Royal Render — Machine Lambda
+        icon: mdi:render
+        auto_close: false
+        cards:
+          - type: markdown
+            content: |
+              ## Machine Lambda — Royal Render
+
+              État actuel : **{{ states('sensor.machine_lambda_status') }}**
+
+              - **Enable — 24h/24** : active la machine et retire les contraintes horaires.
+              - **Enable — Working Hours** : active la machine pendant les horaires configurés.
+              - **Abort After Frames** : termine la frame actuelle puis retire la machine des calculs.
+
+              Ces commandes concernent uniquement Royal Render, jamais l’alimentation électrique du poste.
+
+          - type: custom:bubble-card
+            card_type: button
+            button_type: state
+            entity: sensor.machine_lambda_status
+            name: Royal Render status
+            icon: mdi:render
+            tap_action:
+              action: more-info
+
+          - type: grid
+            columns: 1
+            square: false
+            cards:
+              - type: custom:bubble-card
+                card_type: button
+                button_type: name
+                name: Enable — 24h/24
+                icon: mdi:play-circle
+                button_action:
+                  tap_action:
+                    action: perform-action
+                    perform_action: button.press
+                    target:
+                      entity_id:
+                        - button.machine_lambda_enable
+                        - button.machine_lambda_ignore_working_hours
+                    confirmation:
+                      text: Make Machine Lambda available for Royal Render 24/7?
+                styles: |
+                  .bubble-button-card-container { border:1px solid rgba(39,166,68,.58); background:rgba(39,166,68,.16); }
+                  .bubble-name { color:#bbf7d0 !important; font-weight:700; }
+
+              - type: custom:bubble-card
+                card_type: button
+                button_type: name
+                name: Enable — Working Hours
+                icon: mdi:calendar-clock
+                button_action:
+                  tap_action:
+                    action: perform-action
+                    perform_action: button.press
+                    target:
+                      entity_id:
+                        - button.machine_lambda_enable
+                        - button.machine_lambda_use_working_hours
+                    confirmation:
+                      text: Make Machine Lambda available only during working hours?
+                styles: |
+                  .bubble-button-card-container { border:1px solid rgba(245,158,11,.58); background:rgba(245,158,11,.17); }
+                  .bubble-name { color:#fde68a !important; font-weight:700; }
+
+              - type: custom:bubble-card
+                card_type: button
+                button_type: name
+                name: Abort After Frames
+                icon: mdi:pause-circle-outline
+                button_action:
+                  tap_action:
+                    action: perform-action
+                    perform_action: button.press
+                    target:
+                      entity_id: button.machine_lambda_disable_after_frame
+                    confirmation:
+                      text: Disable Machine Lambda after the current frame?
+                styles: |
+                  .bubble-button-card-container { border:1px solid rgba(239,68,68,.58); background:rgba(239,68,68,.15); }
+                  .bubble-name { color:#fecaca !important; font-weight:700; }

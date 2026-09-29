@@ -15,7 +15,7 @@ official Royal Render Python SDK. Public, generic project: no studio addresses,
 credentials, proprietary SDK binaries or production scenes are distributed.
 
 **[Quick start](#quick-start)** · **[Windows bridge](#windows-installation)** ·
-**[HACS setup](#hacs-installation)** · **[Dashboard example](examples/dashboard.yaml)** ·
+**[HACS setup](#hacs-installation)** · **[Renderfarm dashboard](docs/dashboard.md)** ·
 **[Installation & troubleshooting (FR)](docs/installation-fr.md)** ·
 **[Linux (experimental)](docs/linux.md)** ·
 **[Releases](https://github.com/Pagecran/ha-royalrender/releases)** ·
@@ -157,9 +157,11 @@ Royal Render light/dark logos are bundled with the integration for Home Assistan
 See [branding and dashboard instructions](docs/branding.md) to use the logo in a
 Picture card; a ready-to-copy example is in `examples/logo-card.yaml`.
 
-`examples/dashboard.yaml` is a minimal starting example. A user-created dashboard
-is in preparation and will be added after it is supplied and its private values
-are replaced with placeholders. It has not yet been supplied or validated.
+The user-contributed [Renderfarm dashboard](examples/renderfarm-dashboard.yaml)
+provides job tables, a machine card and a control popup using Bubble Card and
+card-mod. See [import instructions and adaptation notes](docs/dashboard.md).
+It uses placeholder entities and is a starting point, not a fully validated UI.
+`examples/dashboard.yaml` remains the minimal incident-monitoring example.
 
 ## Job health rules
 

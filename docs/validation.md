@@ -87,7 +87,10 @@ User-confirmed on Windows Server 2025 / HAOS Core 2026.9.4:
 - Unavailable buttons were explained by the default `allow_commands=false`.
   Instructions for enabling commands were supplied; execution and live command
   behavior have not been confirmed.
-- A dashboard is being prepared by the user and will be supplied later.
+- The user supplied an anonymized dashboard base, now published as
+  `examples/renderfarm-dashboard.yaml` with import/dependency notes in
+  `docs/dashboard.md`. YAML structure is checked; frontend rendering, popup
+  compatibility and live button behavior remain to be validated.
 
 Reproduction and recovery steps: [French installation guide](installation-fr.md).
 No actual credentials, internal addresses or private configuration are included.

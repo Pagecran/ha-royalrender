@@ -2,8 +2,8 @@
 
 État au 29 septembre 2026 : service Windows démarré, API locale authentifiée
 fonctionnelle et clients affichés dans Home Assistant. Les commandes réelles sur
-les machines ne sont pas encore validées. Le dashboard utilisateur sera fourni
-ultérieurement ; `examples/dashboard.yaml` reste un exemple minimal.
+les machines ne sont pas encore validées. Une [base de dashboard utilisateur](dashboard.md)
+est maintenant disponible ; `examples/dashboard.yaml` reste un exemple minimal.
 
 Les chemins ci-dessous sont des exemples d'installation standard. Adaptez-les si
 vous avez choisi d'autres dossiers. Les adresses et les clés sont propres à votre
@@ -172,12 +172,12 @@ après la frame. **Working Hours** applique le planning RR existant, sans le mod
 Les affectations de groupes concernent les membres au moment de la commande.
 L'activation et les actions réelles restent à confirmer sur le pilote.
 
-## Affichage et dashboard à venir
+## Affichage et dashboard
 
 Dans les options de l'intégration, **10 jours** conserve les jobs actifs et ceux
 soumis récemment ; **0** ne conserve que les actifs. Les jobs en attente et
 bloqués après erreurs restent visibles même s'ils sont anciens.
 
-Le dashboard utilisateur sera ajouté après réception d'une version exploitable.
-Les noms de machines, projets, jobs, adresses et identifiants d'entités propres au
-site devront être remplacés par des exemples génériques avant publication.
+La [base Renderfarm](dashboard.md) fournie par l'utilisateur est publiée avec
+une machine fictive. Adapter les identifiants à votre installation ; les détails
+de mise en page et les commandes restent à valider dans votre interface.
