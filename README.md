@@ -1,5 +1,10 @@
 # Royal Render for Home Assistant
 
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="custom_components/royalrender/brand/dark_logo.png">
+  <img src="custom_components/royalrender/brand/logo.png" alt="Royal Render" width="221">
+</picture>
+
 [![HACS: Custom](https://img.shields.io/badge/HACS-Custom-41BDF5?logo=homeassistant&logoColor=white)](https://my.home-assistant.io/redirect/hacs_repository/?owner=Pagecran&repository=ha-royalrender&category=integration)
 [![Release](https://img.shields.io/github/v/release/Pagecran/ha-royalrender?include_prereleases)](https://github.com/Pagecran/ha-royalrender/releases)
 [![Tests](https://github.com/Pagecran/ha-royalrender/actions/workflows/tests.yml/badge.svg)](https://github.com/Pagecran/ha-royalrender/actions/workflows/tests.yml)
@@ -15,7 +20,7 @@ credentials, proprietary SDK binaries or production scenes are distributed.
 **[Releases](https://github.com/Pagecran/ha-royalrender/releases)** ·
 **[Report an issue](https://github.com/Pagecran/ha-royalrender/issues/new)**
 
-**Version 0.1.1 — validation build.** Target: Home Assistant Core 2026.9.4
+**Integration version 0.1.2 — validation build.** Target: Home Assistant Core 2026.9.4
 on HAOS, Royal Render 9.1.x, Windows Server 2025. A pilot installation now runs
 as a Windows service and displays clients in Home Assistant, with the bridge
 fix and service-host workaround documented in the [installation guide](docs/installation-fr.md).
@@ -144,6 +149,10 @@ For an existing installation, see [enabling commands](docs/installation-fr.md#ac
 
 ### Dashboard
 
+Royal Render light/dark logos are bundled with the integration for Home Assistant.
+See [branding and dashboard instructions](docs/branding.md) to use the logo in a
+Picture card; a ready-to-copy example is in `examples/logo-card.yaml`.
+
 `examples/dashboard.yaml` is a minimal starting example. A user-created dashboard
 is in preparation and will be added after it is supplied and its private values
 are replaced with placeholders. It has not yet been supplied or validated.
@@ -196,3 +205,4 @@ python -m venv .venv
 The SDK adapter is injectable: automated tests never connect to or modify a farm.
 An optional **read-only** live check is documented in `docs/validation.md`.
 All code is MIT licensed; Royal Render itself and its SDK remain proprietary.
+Brand artwork belongs to its respective owners; see [asset attribution](docs/branding.md#sources-and-attribution).

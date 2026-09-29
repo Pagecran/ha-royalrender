@@ -1,0 +1,8 @@
+# Copy brand PNGs to /config/www/royalrender first; see docs/branding.md.
+# For a dark dashboard, use /local/royalrender/dark_logo.png.
+type: picture
+image: /local/royalrender/logo.png
+tap_action:
+  action: none
+hold_action:
+  action: none

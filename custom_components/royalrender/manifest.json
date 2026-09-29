@@ -1,7 +1,7 @@
 {
   "domain": "royalrender",
   "name": "Royal Render",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "codeowners": ["@Pagecran"],
   "config_flow": true,
   "documentation": "https://github.com/Pagecran/ha-royalrender",
