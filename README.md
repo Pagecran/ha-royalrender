@@ -11,12 +11,15 @@ credentials, proprietary SDK binaries or production scenes are distributed.
 
 **[Quick start](#quick-start)** · **[Windows bridge](#windows-installation)** ·
 **[HACS setup](#hacs-installation)** · **[Dashboard example](examples/dashboard.yaml)** ·
+**[Installation & troubleshooting (FR)](docs/installation-fr.md)** ·
 **[Releases](https://github.com/Pagecran/ha-royalrender/releases)** ·
 **[Report an issue](https://github.com/Pagecran/ha-royalrender/issues/new)**
 
 **Version 0.1.1 — validation build.** Target: Home Assistant Core 2026.9.4
-on HAOS, Royal Render 9.1.x, Windows Server 2025. Installation on HAOS and Windows
-SCM and live write commands still require an agreed test deployment. See
+on HAOS, Royal Render 9.1.x, Windows Server 2025. A pilot installation now runs
+as a Windows service and displays clients in Home Assistant, with the bridge
+fix and service-host workaround documented in the [installation guide](docs/installation-fr.md).
+Live write commands are still unverified. See
 [validation](docs/validation.md) for what has actually been tested.
 
 ## Quick start
@@ -25,6 +28,8 @@ SCM and live write commands still require an agreed test deployment. See
 
 [Download v0.1.1 (ZIP)](https://github.com/Pagecran/ha-royalrender/archive/refs/tags/v0.1.1.zip),
 extract it on the Royal Render server and follow the [Windows installation](#windows-installation).
+The v0.1.1 archive predates the JSON fix: apply the
+[bridge hotfix and Windows service workaround](docs/installation-fr.md) before connecting HA.
 Keep the bridge URL and generated API key for the Home Assistant setup.
 
 ### 2. Open this repository in HACS
@@ -135,6 +140,13 @@ it does not delete or modify RR jobs. Upgrade the bridge as well to provide subm
 timestamps. The bridge should use the same local timezone as the RR server.
 When RR is inaccessible the integration cannot complete its initial setup.
 Controls remain unavailable if the bridge was installed without `-EnableCommands`.
+For an existing installation, see [enabling commands](docs/installation-fr.md#activer-les-boutons).
+
+### Dashboard
+
+`examples/dashboard.yaml` is a minimal starting example. A user-created dashboard
+is in preparation and will be added after it is supplied and its private values
+are replaced with placeholders. It has not yet been supplied or validated.
 
 ## Job health rules
 

@@ -12,6 +12,12 @@ list positions. Boolean fields and callable methods are handled separately.
 
 ## Automated verification
 
+Post-v0.1.1 hotfix `9679c6a`: 16 local tests passed. The SDK exposes
+`sceneDisplayName` as a method; returning the method rather than calling it
+caused HTTP 500 when serializing snapshots. The regression test now serializes
+a complete adapter snapshot, and a live read-only snapshot also passed JSON
+serialization with strict finite-number handling.
+
 0.1.1: 15 local bridge/filter tests passed, including the 10-day submission
 boundary, active-only mode, retention of old blocked/pending/rendering jobs,
 omission of old finished/manually disabled jobs, ordering and immutable input.
@@ -53,13 +59,32 @@ print(len(snapshot["jobs"]), len(snapshot["machines"]), len(snapshot["groups"]))
 This only requests status. Do not commit its output: it can contain private job,
 user and machine names. No production commands have been sent during development.
 
+## Pilot deployment — 29 September 2026
+
+User-confirmed on Windows Server 2025 / HAOS Core 2026.9.4:
+
+- Python 3.13 x64 installed; bridge installed in a dedicated virtual environment.
+- Original pywin32 executable failed to start (missing DLL, then service-manager
+  module lookup failure). An explicit Python service host resolved startup.
+- Windows service reported Running under LocalSystem and loaded the RR SDK.
+- After hotfix `9679c6a`, the authenticated local API returned farm counters.
+- Home Assistant connected successfully; the user confirmed clients are displayed.
+- Unavailable buttons were explained by the default `allow_commands=false`.
+  Instructions for enabling commands were supplied; execution and live command
+  behavior have not been confirmed.
+- A dashboard is being prepared by the user and will be supplied later.
+
+Reproduction and recovery steps: [French installation guide](installation-fr.md).
+No actual credentials, internal addresses or private configuration are included.
+The service-host workaround is documented; it is not yet built into the v0.1.1 installer.
+
 ## Still to validate on the target installation
 
-- HACS install, HA UI config/reconfigure/reauth, dynamic entities and dashboards.
-- Windows SCM installation/start/stop/reboot and access under the service account.
+- HA reconfigure/reauth, discovery of newly added clients and the finished dashboard.
+- Windows service behavior after a server reboot and recovery after process failure.
 - One expressly designated test machine and disposable job: commands, existing
   Working Hours policy, after-frame behavior and group changes during execution.
 - TLS/firewall and simulated service/network outages with Home Assistant.
 
-No service is installed automatically by tests, no firewall rule is changed,
-and HA or RR production configuration is not modified by development.
+Automated tests do not install services, alter firewalls or send RR commands.
+The pilot deployment was performed by the user using the provided instructions.
