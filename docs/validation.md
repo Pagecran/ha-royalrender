@@ -3,6 +3,21 @@
 This is an initial implementation, not yet a certified production deployment.
 Target: HA Core 2026.9.4 on HAOS, Windows Server 2025 24H2, RR 9.1.x.
 
+## Experimental Linux preview 0.2.0b1
+
+Linux installer and service smoke test passed on GitHub Actions Ubuntu
+(run `36584999304`): root installation with a dedicated unprivileged account,
+systemd unit validation, configuration permissions 0640, refusal to overwrite an
+existing installation, service start, authenticated HTTP snapshot, restart and stop.
+The test uses a deliberately fake SDK and never contacts an RR server.
+Linux bridge tests, HA runtime tests and HACS validation also passed in that run.
+Local Windows tests: 19 passed, one Linux-only test skipped.
+
+Inspection of the vendor distribution confirmed that Linux native modules reside
+in `bin/lx64/lib`; adapter search paths and service `LD_LIBRARY_PATH` now account
+for this. Native RR Linux loading, ABI compatibility and real farm commands
+remain untested. See [Linux installation and validation boundaries](linux.md).
+
 The RR 9.1.28 installation was inspected in read-only mode. Native SDK symbols
 and signatures were confirmed for client status, groups, job info, cEnable,
 cDisable, cAbortAfterFrameDisable, cUseWorking, cIgnoreWorking and
