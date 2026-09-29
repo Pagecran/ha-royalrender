@@ -10,17 +10,18 @@
 [![Tests](https://github.com/Pagecran/ha-royalrender/actions/workflows/tests.yml/badge.svg)](https://github.com/Pagecran/ha-royalrender/actions/workflows/tests.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-Custom Home Assistant integration (HACS) and a separate Windows bridge using the
+Custom Home Assistant integration (HACS) and a separate Windows/Linux bridge using the
 official Royal Render Python SDK. Public, generic project: no studio addresses,
 credentials, proprietary SDK binaries or production scenes are distributed.
 
 **[Quick start](#quick-start)** · **[Windows bridge](#windows-installation)** ·
 **[HACS setup](#hacs-installation)** · **[Dashboard example](examples/dashboard.yaml)** ·
 **[Installation & troubleshooting (FR)](docs/installation-fr.md)** ·
+**[Linux (experimental)](docs/linux.md)** ·
 **[Releases](https://github.com/Pagecran/ha-royalrender/releases)** ·
 **[Report an issue](https://github.com/Pagecran/ha-royalrender/issues/new)**
 
-**Integration version 0.1.2 — validation build.** Target: Home Assistant Core 2026.9.4
+**0.2.0b1 — Linux experimental preview; stable release: v0.1.2.** Target: Home Assistant Core 2026.9.4
 on HAOS, Royal Render 9.1.x, Windows Server 2025. A pilot installation now runs
 as a Windows service and displays clients in Home Assistant, with the bridge
 fix and service-host workaround documented in the [installation guide](docs/installation-fr.md).
@@ -30,6 +31,9 @@ Live write commands are still unverified. See
 ## Quick start
 
 ### 1. Install the Windows bridge
+
+For a Linux server with native Royal Render, use the separate
+[experimental Linux/systemd installation guide](docs/linux.md).
 
 [Download v0.1.1 (ZIP)](https://github.com/Pagecran/ha-royalrender/archive/refs/tags/v0.1.1.zip),
 extract it on the Royal Render server and follow the [Windows installation](#windows-installation).
@@ -130,8 +134,8 @@ Use `scripts/uninstall.ps1` to remove the service while retaining config/logs.
 
 1. HACS → Custom repositories → add `https://github.com/Pagecran/ha-royalrender`,
    category **Integration**. This is a custom repository, not a HACS catalog listing.
-   The initial release is marked pre-release: enable beta versions in HACS if
-   needed to select it.
+   v0.1.2 is a standard release. Enable beta versions only to select the Linux
+   preview v0.2.0b1; existing Windows/HA users do not need the preview for branding.
 2. Download Royal Render and restart Home Assistant.
 3. Settings → Devices & services → Add integration → **Royal Render**.
 4. Enter `http://your-bridge:8787` (or HTTPS) and the generated API key.

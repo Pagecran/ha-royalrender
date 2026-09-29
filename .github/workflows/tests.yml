@@ -3,6 +3,16 @@ on: [push, pull_request, workflow_dispatch]
 permissions:
   contents: read
 jobs:
+  linux-service:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: bash scripts/ci-linux-smoke.sh
+      - if: failure()
+        run: sudo journalctl -u royalrender-ha-bridge --no-pager -n 80
   bridge:
     strategy:
       matrix:

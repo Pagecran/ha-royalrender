@@ -37,7 +37,8 @@ class RoyalRenderSDK:
         binary = root / "bin" / ("win64" if os.name == "nt" else "lx64")
         if os.name == "nt" and self.dll_directory is None:
             self.dll_directory = os.add_dll_directory(str(binary))
-        for path in (binary, root / "SDK/External/Python"):
+        native = binary if os.name == "nt" else binary / "lib"
+        for path in (native, binary, root / "SDK/External/Python"):
             if str(path) not in sys.path:
                 sys.path.insert(0, str(path))
         self.lib = importlib.import_module("rr_python_utils.load_rrlib").rrLib
