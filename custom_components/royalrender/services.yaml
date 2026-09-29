@@ -1,0 +1,51 @@
+machine_command:
+  name: Machine command
+  description: Send an explicit RR command to one machine. Disable can interrupt rendering; use disable_after_frame to request a graceful stop.
+  fields:
+    config_entry_id:
+      required: true
+      selector:
+        config_entry:
+          integration: royalrender
+    machine:
+      required: true
+      example: render-node-01
+      selector:
+        text:
+    action:
+      required: true
+      selector:
+        select:
+          options:
+            - enable
+            - disable
+            - disable_after_frame
+            - working_hours
+            - ignore_working_hours
+assign_groups:
+  name: Assign client groups to job
+  description: Resolve current group members and add, remove or replace the job's client assignment. Membership is a snapshot, not a dynamic link.
+  fields:
+    config_entry_id:
+      required: true
+      selector:
+        config_entry:
+          integration: royalrender
+    job_id:
+      required: true
+      description: Full numeric job ID as text, from the Queue sensor attributes (not the short display ID).
+      selector:
+        text:
+    groups:
+      required: true
+      description: Exact RR group names, available in the Queue sensor attributes.
+      selector:
+        object:
+    mode:
+      default: add
+      selector:
+        select:
+          options:
+            - add
+            - remove
+            - replace

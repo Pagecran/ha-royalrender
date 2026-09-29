@@ -1,0 +1,13 @@
+{
+  "title": "Royal Render",
+  "config": {
+    "step": {
+      "user": {"title": "Connexion à la passerelle Royal Render", "description": "Saisissez l'URL et la clé API configurées lors de l'installation du service Windows.", "data": {"url": "URL de la passerelle", "api_key": "Clé API"}},
+      "reconfigure": {"title": "Reconfigurer la passerelle", "data": {"url": "URL de la passerelle", "api_key": "Clé API"}},
+      "reauth_confirm": {"title": "Actualiser la clé API", "data": {"api_key": "Clé API"}}
+    },
+    "error": {"cannot_connect": "Connexion impossible ou données Royal Render indisponibles.", "invalid_auth": "Clé API incorrecte."},
+    "abort": {"already_configured": "Cette passerelle est déjà configurée.", "wrong_bridge": "Cette adresse correspond à une autre passerelle.", "reauth_successful": "Authentification mise à jour.", "reconfigure_successful": "Configuration mise à jour."}
+  },
+  "options": {"step": {"init": {"title": "Actualisation", "data": {"scan_interval": "Intervalle d'actualisation (secondes)"}}}}
+}

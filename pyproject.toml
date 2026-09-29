@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "royalrender-ha-bridge"
+version = "0.1.0"
+description = "Royal Render SDK bridge for Home Assistant"
+requires-python = ">=3.11"
+dependencies = ["aiohttp>=3.11,<4"]
+
+[project.optional-dependencies]
+windows = ["pywin32>=308; sys_platform == 'win32'"]
+test = ["pytest>=8", "pytest-asyncio>=0.24"]
+
+[project.scripts]
+rr-ha-bridge = "rr_ha_bridge.server:main"
+
+[tool.setuptools.packages.find]
+include = ["rr_ha_bridge*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

@@ -1,0 +1,12 @@
+{
+  "domain": "royalrender",
+  "name": "Royal Render",
+  "version": "0.1.0",
+  "codeowners": ["@Pagecran"],
+  "config_flow": true,
+  "documentation": "https://github.com/Pagecran/ha-royalrender",
+  "issue_tracker": "https://github.com/Pagecran/ha-royalrender/issues",
+  "iot_class": "local_polling",
+  "integration_type": "hub",
+  "requirements": []
+}

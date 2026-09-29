@@ -1,0 +1,13 @@
+{
+  "title": "Royal Render",
+  "config": {
+    "step": {
+      "user": {"title": "Connect to Royal Render bridge", "description": "Enter the Windows bridge URL and API key configured during installation.", "data": {"url": "Bridge URL", "api_key": "API key"}},
+      "reconfigure": {"title": "Reconfigure bridge", "data": {"url": "Bridge URL", "api_key": "API key"}},
+      "reauth_confirm": {"title": "Update API key", "data": {"api_key": "API key"}}
+    },
+    "error": {"cannot_connect": "Cannot connect or Royal Render data is unavailable.", "invalid_auth": "Invalid API key."},
+    "abort": {"already_configured": "This bridge is already configured.", "wrong_bridge": "This address belongs to another bridge.", "reauth_successful": "Authentication updated.", "reconfigure_successful": "Configuration updated."}
+  },
+  "options": {"step": {"init": {"title": "Polling", "data": {"scan_interval": "Update interval (seconds)"}}}}
+}
