@@ -4,7 +4,7 @@ Custom Home Assistant integration (HACS) and a separate Windows bridge using the
 official Royal Render Python SDK. Public, generic project: no studio addresses,
 credentials, proprietary SDK binaries or production scenes are distributed.
 
-**Initial release 0.1.0 — validation build.** Target: Home Assistant Core 2026.9.4
+**Version 0.1.1 — validation build.** Target: Home Assistant Core 2026.9.4
 on HAOS, Royal Render 9.1.x, Windows Server 2025. Installation on HAOS and Windows
 SCM and live write commands still require an agreed test deployment. See
 [validation](docs/validation.md) for what has actually been tested.
@@ -92,6 +92,12 @@ Use `scripts/uninstall.ps1` to remove the service while retaining config/logs.
 4. Enter `http://your-bridge:8787` (or HTTPS) and the generated API key.
 
 Use **Reconfigure** to change URL/key and **Options** for the update interval.
+Options also sets the submission history window (default **10 days**, **0** for
+active jobs only). Active jobs (rendering, pending, or disabled because of errors)
+stay visible regardless of age. Recent finished/manually disabled jobs are included
+within the window, newest submissions first. This only filters the HA display;
+it does not delete or modify RR jobs. Upgrade the bridge as well to provide submission
+timestamps. The bridge should use the same local timezone as the RR server.
 When RR is inaccessible the integration cannot complete its initial setup.
 Controls remain unavailable if the bridge was installed without `-EnableCommands`.
 

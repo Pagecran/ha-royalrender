@@ -9,5 +9,5 @@
     "error": {"cannot_connect": "Connexion impossible ou données Royal Render indisponibles.", "invalid_auth": "Clé API incorrecte."},
     "abort": {"already_configured": "Cette passerelle est déjà configurée.", "wrong_bridge": "Cette adresse correspond à une autre passerelle.", "reauth_successful": "Authentification mise à jour.", "reconfigure_successful": "Configuration mise à jour."}
   },
-  "options": {"step": {"init": {"title": "Actualisation", "data": {"scan_interval": "Intervalle d'actualisation (secondes)"}}}}
+  "options": {"step": {"init": {"title": "Actualisation et historique", "data": {"scan_interval": "Intervalle d'actualisation (secondes)", "history_days": "Soumissions récentes (jours, 0 = jobs actifs uniquement)"}}}}
 }

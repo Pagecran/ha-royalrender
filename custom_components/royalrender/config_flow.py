@@ -80,4 +80,6 @@ class RoyalRenderOptionsFlow(config_entries.OptionsFlow):
         return self.async_show_form(step_id="init", data_schema=vol.Schema({
             vol.Required("scan_interval", default=self.config_entry.options.get("scan_interval", 15)):
                 vol.All(vol.Coerce(int), vol.Range(min=5, max=300)),
+            vol.Required("history_days", default=self.config_entry.options.get("history_days", 10)):
+                vol.All(vol.Coerce(int), vol.Range(min=0, max=365)),
         }))

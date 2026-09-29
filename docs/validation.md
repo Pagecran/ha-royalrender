@@ -12,6 +12,10 @@ list positions. Boolean fields and callable methods are handled separately.
 
 ## Automated verification
 
+0.1.1: 15 local bridge/filter tests passed, including the 10-day submission
+boundary, active-only mode, retention of old blocked/pending/rendering jobs,
+omission of old finished/manually disabled jobs, ordering and immutable input.
+
 Local results on 29 September 2026: 14 bridge tests passed, Python compilation
 passed and both PowerShell installer scripts passed syntax parsing. Read-only
 live SDK snapshot returned 545 jobs, 47 machines and 13 groups with exact string

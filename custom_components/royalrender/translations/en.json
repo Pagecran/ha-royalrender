@@ -9,5 +9,5 @@
     "error": {"cannot_connect": "Cannot connect or Royal Render data is unavailable.", "invalid_auth": "Invalid API key."},
     "abort": {"already_configured": "This bridge is already configured.", "wrong_bridge": "This address belongs to another bridge.", "reauth_successful": "Authentication updated.", "reconfigure_successful": "Configuration updated."}
   },
-  "options": {"step": {"init": {"title": "Polling", "data": {"scan_interval": "Update interval (seconds)"}}}}
+  "options": {"step": {"init": {"title": "Polling and job history", "data": {"scan_interval": "Update interval (seconds)", "history_days": "Recent submissions (days, 0 = active jobs only)"}}}}
 }

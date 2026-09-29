@@ -94,6 +94,8 @@ class RoyalRenderSDK:
             jobs.append({
                 # Preserve 64-bit job IDs as strings; JavaScript numbers lose precision.
                 "id": str(j.ID), "label": j.IDstr().strip("{} "),
+                # RR exposes a local datetime; the bridge runs in the RR server's timezone.
+                "submitted_at": j.dateSubmitted.timestamp() if j.dateSubmitted else None,
                 "name": j.sceneDisplayName or j.sceneName.replace("\\", "/").rsplit("/", 1)[-1],
                 "user": j.userName, "project": j.companyProjectName,
                 "layer": j.layer, "status": status,

@@ -11,7 +11,8 @@ SNAPSHOT = {
     "machines": [{"id": "node-a", "name": "node-a", "enabled": True, "rendering": True,
                   "states": ["Rendering"], "jobs": ["1877000000000000001"], "cpu_percent": 98}],
     "jobs": [{"id": "1877000000000000001", "label": "TEST", "health": "warning",
-              "problem": True, "finished": False, "done": 1, "total": 10}],
+              "problem": True, "finished": False, "done": 1, "total": 10,
+              "rendering": True, "disabled": False, "disabled_errors": False}],
     "groups": [{"name": "CPU", "clients": ["node-a"]}],
 }
 

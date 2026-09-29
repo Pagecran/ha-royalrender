@@ -41,11 +41,12 @@ class QueueSensor(RoyalRenderEntity, SensorEntity):
 
     @property
     def native_value(self):
-        return sum(not j["finished"] for j in self.coordinator.data["jobs"])
+        return len(self.coordinator.data["jobs"])
 
     @property
     def extra_state_attributes(self):
-        return {"jobs": [j for j in self.coordinator.data["jobs"] if not j["finished"]],
+        return {"jobs": self.coordinator.data["jobs"],
+                "history_days": self.coordinator.data["history_days"],
                 "groups": self.coordinator.data["groups"],
                 "updated_at": self.coordinator.data["updated_at"]}
 
